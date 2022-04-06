@@ -1,0 +1,66 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Importando Arquivos
+```{r}
+dados1=read.csv("tempo.csv",sep=";",na.strings="",stringsAsFactors=T);
+
+```
+Analisando aparencia
+```{r}
+grafico1=table(dados1$Aparencia);
+barplot(grafico1, main="Aparencia", xlab="Aparencia");
+summary(dados1$Aparencia);
+```
+Analisando Temperatura
+```{r}
+summary(dados1$Temperatura);
+boxplot(dados1$Temperatura);
+hist(dados1$Temperatura);
+```
+Analisando Umidade
+```{r}
+summary(dados1$Umidade);
+boxplot(dados1$Umidade);
+```
+Analisando Jogar
+```{r}
+grafico1=table(dados1$Jogar);
+barplot(grafico1, main="Jogar", xlab="Jogar");
+```
+Analisando Vento
+```{r}
+grafico1=table(dados1$Vento);
+barplot(grafico1, main="Vento", xlab="Vento");
+```
+Verificando Linhas vazias
+```{r}
+dados1[!complete.cases(dados1),];
+
+```
+Corrigindo a linha 4 com valor de umidade pela mediana
+```{r}
+dados1[is.na(dados1$Umidade),]$Umidade=median(dados1$Umidade,na.rm = TRUE);
+```
+Corrindo linha 10 com valor do elemento de maior frequencia
+
+```{r}
+dados1[is.na(dados1$Vento),]$Vento="FALSO";
+
+```
+Corrigir padronização em aparencia substituindo pelo elemento de maior frequencia e eliminar fator
+
+```{r}
+dados1[dados1$Aparencia=="menos",]$Aparencia="chuva";
+dados1$Aparencia= factor(dados1$Aparencia);
+```
+Corrigir Temperatura e umidade para valores dentro do intervalo proposto
+```{r}
+#subtituição
+dados1[dados1$Temperatura>130 ,]$Temperatura= median(dados1$Temperatura);
+#subtituição
+dados1[dados1$Umidade<0 | dados1$Umidade>100 ,]$Umidade = median(dados1$Umidade) 
+```
+
