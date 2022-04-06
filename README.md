@@ -1,0 +1,1 @@
+# Limpeza-e-Tratamento-de-dados-de-uma-tabela-de-clima
